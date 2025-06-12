@@ -1,12 +1,12 @@
-package entidades.principais;
+package card.credit.w3.w3.entidades.principais;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import enums.BandeiraCartao;
-import enums.StatusCartao;
-import enums.TipoCartao;
+import card.credit.w3.w3.enums.BandeiraCartao;
+import card.credit.w3.w3.enums.StatusCartao;
+import card.credit.w3.w3.enums.TipoCartao;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,7 +30,7 @@ public class Cartao implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private UUID id;
+	private Long id;
 	private String numero;
 	private double limite;
 	@Enumerated(EnumType.STRING)

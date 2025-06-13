@@ -1,4 +1,4 @@
-package card.credit.w3.w3.entidades.secundarias.services;
+package card.credit.w3.w3.services;
 
 import java.time.LocalDate;
 import java.time.Period;

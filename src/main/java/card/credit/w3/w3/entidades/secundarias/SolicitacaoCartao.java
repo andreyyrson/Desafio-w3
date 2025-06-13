@@ -55,5 +55,5 @@ public class SolicitacaoCartao {
 	 
 	 private LocalDate dataSolicitacao = LocalDate.now();
 	 
-	 private String numeroProvisorio;
+
 }

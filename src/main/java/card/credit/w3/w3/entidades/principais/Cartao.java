@@ -31,7 +31,7 @@ public class Cartao implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String numero;
+	private String numeroCartao;
 	private double limite;
 	@Enumerated(EnumType.STRING)
 	private TipoCartao tipo;

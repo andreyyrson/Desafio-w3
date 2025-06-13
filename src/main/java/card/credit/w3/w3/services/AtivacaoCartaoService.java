@@ -23,8 +23,8 @@ public class AtivacaoCartaoService {
             throw new RuntimeException("CPF inválido para este cartão.");
         }
 
-        if (cartao.getStatus() != StatusCartao.APROVADO && cartao.getStatus() != StatusCartao.ENTREGUE) {
-            throw new RuntimeException("Cartão deve estar com status APROVADO ou ENTREGUE para ativação.");
+        if (cartao.getStatus() != StatusCartao.APROVADO) {
+            throw new RuntimeException("Cartão deve estar com status APROVADO");
         }
 
         cartao.setSenhaHash(senhaInicial);

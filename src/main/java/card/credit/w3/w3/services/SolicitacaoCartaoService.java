@@ -53,7 +53,7 @@ public class SolicitacaoCartaoService {
  
         String numeroCartao = gerarNumeroCartao(bandeira);
         Cartao cartao = new Cartao();
-        cartao.setNumero(numeroCartao);
+        cartao.setNumeroCartao(numeroCartao);
         cartao.setTipo(TipoCartao.valueOf(tipo.toUpperCase()));
         cartao.setBandeira(BandeiraCartao.valueOf(bandeira.toUpperCase()));
         cartao.setDataCriacaoCartao(LocalDate.now());
@@ -63,7 +63,12 @@ public class SolicitacaoCartaoService {
         cartaoRepo.save(cartao); 
         SolicitacaoCartao solicitacao = new SolicitacaoCartao();
         solicitacao.setCliente(cliente);
+        solicitacao.setCartaoGerado(cartao);
         solicitacao.setDataSolicitacao(LocalDate.now());
+        solicitacao.setBandeira(BandeiraCartao.valueOf(bandeira.toUpperCase()));
+        solicitacao.setRendaInformada(renda);
+        solicitacao.setTipo(TipoCartao.valueOf(tipo.toUpperCase()));
+        solicitacao.setStatus(StatusCartao.SOLICITADO);
         soliticitacaoRepo.save(solicitacao);
 
         return "Cartão " + numeroCartao + " criado com status: SOLICITADO";

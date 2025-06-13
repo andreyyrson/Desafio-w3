@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 import card.credit.w3.w3.entidades.principais.Cartao;
 import card.credit.w3.w3.entidades.principais.Cliente;
 import card.credit.w3.w3.entidades.principais.dto.CartaoDTO;
-import card.credit.w3.w3.entidades.principais.repositorios.CartaoRepositorio;
-import card.credit.w3.w3.entidades.principais.repositorios.ClienteRepositorio;
 import card.credit.w3.w3.entidades.secundarias.SolicitacaoCartao;
 import card.credit.w3.w3.entidades.secundarias.dto.SolicitacaoCartaoDTO;
-import card.credit.w3.w3.entidades.secundarias.repositorios.SolicitacaoCartaoRepositorio;
 import card.credit.w3.w3.enums.BandeiraCartao;
 import card.credit.w3.w3.enums.StatusCartao;
 import card.credit.w3.w3.enums.TipoCartao;
+import card.credit.w3.w3.repository.CartaoRepositorio;
+import card.credit.w3.w3.repository.ClienteRepositorio;
+import card.credit.w3.w3.repository.SolicitacaoCartaoRepositorio;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

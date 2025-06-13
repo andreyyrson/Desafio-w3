@@ -1,4 +1,4 @@
-package card.credit.w3.w3.entidades.principais.repositorios;
+package card.credit.w3.w3.repository;
 
 import java.util.Optional;
 import java.util.UUID;

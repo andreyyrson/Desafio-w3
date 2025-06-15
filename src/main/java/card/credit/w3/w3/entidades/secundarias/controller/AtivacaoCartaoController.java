@@ -1,6 +1,6 @@
 package card.credit.w3.w3.entidades.secundarias.controller;
 
-import card.credit.w3.w3.entidades.secundarias.dto.AtivacaoCartaoDTO;
+import card.credit.w3.w3.entidades.secundarias.dto.AtivacaoRequest;
 import card.credit.w3.w3.entidades.secundarias.services.AtivacaoCartaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -8,23 +8,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/cartoes")
+@RequestMapping("/api/cartoes/ativacao")
 @RequiredArgsConstructor
 public class AtivacaoCartaoController {
 
-    private final AtivacaoCartaoService cartaoService;
+    private final AtivacaoCartaoService ativacaoCartaoService;
 
-    @PostMapping("/ativar")
-    public ResponseEntity<?> ativarCartao(@Valid @RequestBody AtivacaoCartaoDTO ativacaoCartaoDTO) {
-        try {
-            cartaoService.ativarCartao(
-                    ativacaoCartaoDTO.numeroCartao(),
-                    ativacaoCartaoDTO.cpf(),
-                    ativacaoCartaoDTO.senhaInicial()
-            );
-            return ResponseEntity.ok("Cartão ativado com sucesso.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @PostMapping
+    public ResponseEntity<Void> ativarCartao(
+            @RequestBody @Valid AtivacaoRequest request) {
+        
+        ativacaoCartaoService.ativarCartao(
+                request.cartaoId(),
+                request.cpf(),
+                request.senha()
+        );
+        
+        return ResponseEntity.ok().build();
     }
+
+    
 }

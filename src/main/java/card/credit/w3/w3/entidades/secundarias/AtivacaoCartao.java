@@ -1,8 +1,13 @@
 package card.credit.w3.w3.entidades.secundarias;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+import card.credit.w3.w3.entidades.principais.Cartao;
+
+@Data
 @Entity
 @Table(name = "ativacoes_cartao")
 public class AtivacaoCartao {
@@ -23,12 +28,7 @@ public class AtivacaoCartao {
     @Column(name = "data_ativacao", nullable = false)
     private LocalDateTime dataAtivacao;
 
-    public AtivacaoCartao() {}
-
-    public AtivacaoCartao(String numeroCartao, String cpf, String senhaInicial, LocalDateTime dataAtivacao) {
-        this.numeroCartao = numeroCartao;
-        this.cpf = cpf;
-        this.senhaInicial = senhaInicial;
-        this.dataAtivacao = dataAtivacao;
-    }
+    @OneToOne
+    @JoinColumn(name = "cartao_id", nullable = false)
+    private Cartao cartao;
 }

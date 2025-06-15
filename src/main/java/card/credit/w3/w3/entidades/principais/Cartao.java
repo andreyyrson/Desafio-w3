@@ -1,6 +1,7 @@
 package card.credit.w3.w3.entidades.principais;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -31,17 +32,26 @@ public class Cartao implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String numeroCartao;
-	private double limite;
+	
+	private BigDecimal limite;
+	
 	@Enumerated(EnumType.STRING)
 	private TipoCartao tipo;
+	
 	@Enumerated(EnumType.STRING)
 	private BandeiraCartao bandeira;
+	
 	private LocalDate dataCriacaoCartao = LocalDate.now();
+	
 	private LocalDate Vencimento;
+	
 	private String senhaHash;
+	
 	@Enumerated(EnumType.STRING)
 	private StatusCartao status;
+	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;

@@ -10,6 +10,6 @@ import card.credit.w3.w3.entidades.principais.Cartao;
 import card.credit.w3.w3.entidades.secundarias.SolicitacaoCartao;
 
 @Repository
-public interface SolicitacaoCartaoRepositorio extends JpaRepository<SolicitacaoCartao, Long> {
+public interface SolicitacaoCartaoRepository extends JpaRepository<SolicitacaoCartao, Long> {
 	Optional<SolicitacaoCartao> findByCartaoGeradoId(Long cartaoId);
 }

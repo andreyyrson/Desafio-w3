@@ -1,11 +1,6 @@
 package card.credit.w3.w3.entidades.principais;
 
 import java.time.LocalDate;
-import java.util.UUID;
-
-import card.credit.w3.w3.enums.BandeiraCartao;
-import card.credit.w3.w3.enums.StatusCartao;
-import card.credit.w3.w3.enums.TipoCartao;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

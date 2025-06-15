@@ -1,24 +1,20 @@
-package card.credit.w3.w3.services;
+package card.credit.w3.w3.entidades.secundarias.services;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Random;
-import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import card.credit.w3.w3.entidades.principais.Cartao;
 import card.credit.w3.w3.entidades.principais.Cliente;
-import card.credit.w3.w3.entidades.principais.dto.CartaoDTO;
+import card.credit.w3.w3.entidades.principais.repository.CartaoRepositorio;
 import card.credit.w3.w3.entidades.secundarias.SolicitacaoCartao;
-import card.credit.w3.w3.entidades.secundarias.dto.SolicitacaoCartaoDTO;
+import card.credit.w3.w3.entidades.secundarias.repository.SolicitacaoCartaoRepositorio;
 import card.credit.w3.w3.enums.BandeiraCartao;
 import card.credit.w3.w3.enums.StatusCartao;
 import card.credit.w3.w3.enums.TipoCartao;
-import card.credit.w3.w3.repository.CartaoRepositorio;
-import card.credit.w3.w3.repository.ClienteRepositorio;
-import card.credit.w3.w3.repository.SolicitacaoCartaoRepositorio;
+import card.credit.w3.w3.entidades.principais.repository.ClienteRepositorio;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package card.credit.w3.w3.controller;
+package card.credit.w3.w3.entidades.secundarias.controller;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import card.credit.w3.w3.services.SolicitacaoCartaoService;
+import card.credit.w3.w3.entidades.secundarias.services.SolicitacaoCartaoService;
 import lombok.RequiredArgsConstructor;
 
 @RestController

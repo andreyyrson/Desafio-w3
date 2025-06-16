@@ -1,6 +1,12 @@
 package card.credit.w3.w3.entidades.principais;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import card.credit.w3.w3.enums.BandeiraCartao;
+import card.credit.w3.w3.enums.StatusCartao;
+import card.credit.w3.w3.enums.TipoCartao;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,5 +31,5 @@ public class Cliente {
 	private String name;
 	private String cpf;
 	private double rendaMensal;
-	private LocalDate dataCriacaoConta = LocalDate.now();
+	private LocalDateTime dataCriacaoConta = LocalDateTime.now();
 }

@@ -1,5 +1,6 @@
 package card.credit.w3.w3.entidades.secundarias.controller;
 
+import card.credit.w3.w3.entidades.secundarias.controller.CadastroRedefinicaoSenhaController.MensagemResponse;
 import card.credit.w3.w3.entidades.secundarias.dto.AtivacaoRequest;
 import card.credit.w3.w3.entidades.secundarias.services.AtivacaoCartaoService;
 import jakarta.validation.Valid;
@@ -15,7 +16,7 @@ public class AtivacaoCartaoController {
     private final AtivacaoCartaoService ativacaoCartaoService;
 
     @PostMapping
-    public ResponseEntity<Void> ativarCartao(
+    public ResponseEntity<MensagemResponse> ativarCartao(
             @RequestBody @Valid AtivacaoRequest request) {
         
         ativacaoCartaoService.ativarCartao(
@@ -23,8 +24,10 @@ public class AtivacaoCartaoController {
                 request.cpf(),
                 request.senha()
         );
+        return ResponseEntity.ok(
+                new MensagemResponse("Cartão ativado com sucesso")
+        );
         
-        return ResponseEntity.ok().build();
     }
 
     

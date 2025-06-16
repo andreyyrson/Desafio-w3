@@ -6,5 +6,5 @@ public enum BandeiraCartao {
 	VISA,
 	AMERICAN_EXPRESS, 
 	HIPERCARD,
-	Elo
+	ELO
 }

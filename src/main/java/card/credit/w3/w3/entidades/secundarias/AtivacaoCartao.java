@@ -1,8 +1,15 @@
 package card.credit.w3.w3.entidades.secundarias;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+import card.credit.w3.w3.entidades.principais.Cartao;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "ativacoes_cartao")
 public class AtivacaoCartao {
@@ -31,4 +38,15 @@ public class AtivacaoCartao {
         this.senhaInicial = senhaInicial;
         this.dataAtivacao = dataAtivacao;
     }
+
+    private Cartao cartao;
+
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
+        if (cartao != null) {
+            this.numeroCartao = cartao.getNumeroCartao();
+        }
+    }
+
+    
 }

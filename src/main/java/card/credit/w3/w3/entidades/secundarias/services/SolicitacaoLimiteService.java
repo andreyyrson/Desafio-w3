@@ -1,5 +1,7 @@
 package card.credit.w3.w3.entidades.secundarias.services;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class SolicitacaoLimiteService {
     @Autowired
     private CartaoRepositorio cartaoRepo;
 
-    public SolicitacaoLimite solicitar(CartaoDTO cartaoDTO, double novoLimite) {
+    public SolicitacaoLimite solicitar(CartaoDTO cartaoDTO, BigDecimal novoLimite) {
         Cartao cartao = cartaoRepo.findByNumero(cartaoDTO.numero());
 
         if (cartao == null) {
@@ -47,7 +49,7 @@ public class SolicitacaoLimiteService {
         return solicitacaoLimiteRepositorio.save(solicitacao);
     }
 
-    private boolean aumentoSuperiorA20PorCento(Cartao cartao, double novoLimite) {
-        return novoLimite >= cartao.getLimite() * 1.2;
+    private boolean aumentoSuperiorA20PorCento(Cartao cartao, BigDecimal novoLimite) {
+        return novoLimite.compareTo(cartao.getLimite().multiply(BigDecimal.valueOf(1.2))) >= 0;
     }
 }

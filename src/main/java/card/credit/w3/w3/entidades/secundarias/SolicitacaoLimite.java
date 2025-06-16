@@ -1,5 +1,6 @@
 package card.credit.w3.w3.entidades.secundarias;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import card.credit.w3.w3.entidades.principais.Cartao;
@@ -29,7 +30,7 @@ public class SolicitacaoLimite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public SolicitacaoLimite(Cartao cartao, double limiteSolicitado) {
+    public SolicitacaoLimite(Cartao cartao, BigDecimal limiteSolicitado) {
         this.cartao = cartao;
         this.limiteSolicitado = limiteSolicitado;
     }
@@ -39,7 +40,7 @@ public class SolicitacaoLimite {
     private Cartao cartao;
 
     @Column(name = "limite_solicitado", nullable = false)
-    private double limiteSolicitado;
+    private BigDecimal limiteSolicitado;
 
     @Column(name = "data_solicitacao")
     private LocalDate dataSolicitacao = LocalDate.now();

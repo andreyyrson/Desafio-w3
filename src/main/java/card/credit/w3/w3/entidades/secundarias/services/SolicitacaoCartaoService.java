@@ -66,7 +66,7 @@ public class SolicitacaoCartaoService {
         cartao.setStatus(StatusCartao.SOLICITADO);
         cartao.setCliente(cliente);
         BigDecimal limite = BigDecimal.valueOf(cliente.getRendaMensal()).multiply(MULTIPLICADOR_LIMITE);
-        cartao.setLimite(limite.setScale(2, RoundingMode.HALF_UP).doubleValue());
+        cartao.setLimite(limite.setScale(2, RoundingMode.HALF_UP));
         cartao.setVencimento(LocalDate.now().plusYears(ANOS_VALIDADE));
         
         return cartaoRepo.save(cartao);

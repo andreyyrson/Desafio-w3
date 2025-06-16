@@ -9,6 +9,7 @@ import card.credit.w3.w3.enums.StatusCartao;
 import card.credit.w3.w3.enums.TipoCartao;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
+import java.math.BigDecimal;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class Cartao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String numeroCartao;
-	private double limite;
+	private BigDecimal limite;
 	@Enumerated(EnumType.STRING)
 	private TipoCartao tipo;
 	@Enumerated(EnumType.STRING)

@@ -1,6 +1,9 @@
 package card.credit.w3.w3.entidades.secundarias.services;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.HexFormat;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AtivacaoCartaoService {
 
-	private final CartaoRepository cartaoRepository;
+    private final CartaoRepository cartaoRepository;
     private final AtivacaoCartaoRepository ativacaoCartaoRepository;
 
     @Transactional
@@ -28,28 +31,38 @@ public class AtivacaoCartaoService {
             throw new IllegalArgumentException("CPF não corresponde ao titular do cartão");
         }
 
-        if (!cartao.getSenhaHash().equals(senha)) {
+     
+        String senhaHash = generateHash(senha);
+
+        if (!cartao.getSenhaHash().equals(senhaHash)) {
             throw new IllegalArgumentException("Senha incorreta");
         }
 
-        if (cartao.getStatus() != StatusCartao.APROVADO && 
+        if (cartao.getStatus() != StatusCartao.APROVADO &&
                 cartao.getStatus() != StatusCartao.BLOQUEADO_TEMPORARIO) {
             throw new IllegalArgumentException("O cartão precisa ter sido APROVADO em algum momento para ativação");
         }
-        
 
-      
         cartao.setStatus(StatusCartao.ATIVO);
         cartaoRepository.save(cartao);
 
-        
         AtivacaoCartao ativacao = new AtivacaoCartao();
         ativacao.setNumeroCartao(cartao.getNumeroCartao());
         ativacao.setCpf(cpf);
-        ativacao.setSenhaInicial(senha);
+        ativacao.setSenhaInicial(senhaHash); 
         ativacao.setDataAtivacao(LocalDateTime.now());
         ativacao.setCartao(cartao);
-        
+
         ativacaoCartaoRepository.save(ativacao);
+    }
+
+    private String generateHash(String senha) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(senha.getBytes());
+            return HexFormat.of().formatHex(hashBytes);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Erro ao gerar hash da senha", e);
+        }
     }
 }

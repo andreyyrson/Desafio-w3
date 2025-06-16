@@ -22,7 +22,7 @@ public class AtivacaoCartao {
     @Column(name = "cpf", nullable = false)
     private String cpf;
 
-    @Column(name = "senha_inicial", nullable = false, length = 6)
+    @Column(name = "senha_inicial", nullable = false)
     private String senhaInicial;
 
     @Column(name = "data_ativacao", nullable = false)

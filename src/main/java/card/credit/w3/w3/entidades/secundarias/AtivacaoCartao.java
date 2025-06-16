@@ -28,7 +28,7 @@ public class AtivacaoCartao {
     @Column(name = "data_ativacao", nullable = false)
     private LocalDateTime dataAtivacao;
 
-    @OneToOne
-    @JoinColumn(name = "cartao_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "cartao_id")
     private Cartao cartao;
 }

@@ -32,9 +32,11 @@ public class AtivacaoCartaoService {
             throw new IllegalArgumentException("Senha incorreta");
         }
 
-        if (cartao.getStatus() != StatusCartao.APROVADO) {
-            throw new IllegalArgumentException("Cartão precisa estar APROVADO para ativação");
+        if (cartao.getStatus() != StatusCartao.APROVADO && 
+                cartao.getStatus() != StatusCartao.BLOQUEADO_TEMPORARIO) {
+            throw new IllegalArgumentException("O cartão precisa ter sido APROVADO em algum momento para ativação");
         }
+        
 
       
         cartao.setStatus(StatusCartao.ATIVO);

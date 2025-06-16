@@ -39,7 +39,7 @@ public class SolicitacaoCartao {
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "cartao_id", unique = true)
 	private Cartao cartaoGerado;
 	
@@ -54,7 +54,7 @@ public class SolicitacaoCartao {
 	 @Enumerated(EnumType.STRING)
 	 private StatusCartao status = StatusCartao.SOLICITADO;
 	 
-	 private LocalDate dataSolicitacao = LocalDate.now();
+	 private LocalDateTime dataSolicitacao = LocalDateTime.now();
 	 
 
 }

@@ -3,6 +3,7 @@ package card.credit.w3.w3.entidades.principais;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import card.credit.w3.w3.enums.BandeiraCartao;
@@ -43,7 +44,7 @@ public class Cartao implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private BandeiraCartao bandeira;
 	
-	private LocalDate dataCriacaoCartao = LocalDate.now();
+	private LocalDateTime dataCriacaoCartao = LocalDateTime.now();
 	
 	private LocalDate Vencimento;
 	

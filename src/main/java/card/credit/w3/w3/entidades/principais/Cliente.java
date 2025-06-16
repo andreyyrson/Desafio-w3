@@ -2,6 +2,7 @@ package card.credit.w3.w3.entidades.principais;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import card.credit.w3.w3.enums.BandeiraCartao;
@@ -31,5 +32,5 @@ public class Cliente {
 	private String name;
 	private String cpf;
 	private BigDecimal rendaMensal;
-	private LocalDate dataCriacaoConta = LocalDate.now();
+	private LocalDateTime dataCriacaoConta = LocalDateTime.now();
 }

@@ -3,6 +3,7 @@ package card.credit.w3.w3.entidades.secundarias.services;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.Random;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,7 @@ public class SolicitacaoCartaoService {
         cartao.setNumeroCartao(gerarNumeroCartao(bandeira));
         cartao.setTipo(tipo);
         cartao.setBandeira(bandeira);
-        cartao.setDataCriacaoCartao(LocalDate.now());
+        cartao.setDataCriacaoCartao(LocalDateTime.now());
         cartao.setStatus(StatusCartao.SOLICITADO);
         cartao.setCliente(cliente);
         BigDecimal limite = cliente.getRendaMensal().multiply(MULTIPLICADOR_LIMITE);
@@ -76,7 +77,7 @@ public class SolicitacaoCartaoService {
         SolicitacaoCartao solicitacao = new SolicitacaoCartao();
         solicitacao.setCliente(cliente);
         solicitacao.setCartaoGerado(cartao);
-        solicitacao.setDataSolicitacao(LocalDate.now());
+        solicitacao.setDataSolicitacao(LocalDateTime.now());
         solicitacao.setBandeira(cartao.getBandeira());
         solicitacao.setRendaInformada(cliente.getRendaMensal());
         solicitacao.setTipo(cartao.getTipo());

@@ -39,10 +39,6 @@ public class SolicitacaoLimite {
     @Column(name = "limite_solicitado", nullable = false)
     private double limiteSolicitado;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private Cliente cliente;
-
     @Column(name = "data_solicitacao")
     private LocalDate dataSolicitacao = LocalDate.now();
 

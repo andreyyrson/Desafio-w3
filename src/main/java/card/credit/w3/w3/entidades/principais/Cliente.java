@@ -1,7 +1,7 @@
 package card.credit.w3.w3.entidades.principais;
 
 import java.time.LocalDate;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 import card.credit.w3.w3.enums.BandeiraCartao;
 import card.credit.w3.w3.enums.StatusCartao;
@@ -30,5 +30,5 @@ public class Cliente {
 	private String name;
 	private String cpf;
 	private double rendaMensal;
-	private LocalDate dataCriacaoConta = LocalDate.now();
+	private LocalDateTime dataCriacaoConta = LocalDateTime.now();
 }

@@ -1,6 +1,7 @@
 package card.credit.w3.w3.services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.Random;
 import java.util.UUID;
@@ -56,7 +57,7 @@ public class SolicitacaoCartaoService {
         cartao.setNumeroCartao(numeroCartao);
         cartao.setTipo(TipoCartao.valueOf(tipo.toUpperCase()));
         cartao.setBandeira(BandeiraCartao.valueOf(bandeira.toUpperCase()));
-        cartao.setDataCriacaoCartao(LocalDate.now());
+        cartao.setDataCriacaoCartao(LocalDateTime.now());
         cartao.setStatus(StatusCartao.SOLICITADO);
         cartao.setCliente(cliente); 
 

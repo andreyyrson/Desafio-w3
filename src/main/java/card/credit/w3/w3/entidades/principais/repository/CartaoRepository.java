@@ -12,4 +12,6 @@ import card.credit.w3.w3.entidades.principais.Cliente;
 @Repository
 public interface CartaoRepository extends JpaRepository<Cartao, Long> {
 	List<Cartao> findByCliente(Cliente cliente);
+
+	List<Cartao> findByNumeroCartao(String numeroCartao);
 }

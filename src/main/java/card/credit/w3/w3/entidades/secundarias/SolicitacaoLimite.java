@@ -7,6 +7,8 @@ import card.credit.w3.w3.entidades.principais.Cliente;
 import card.credit.w3.w3.enums.StatusSolicitacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,6 +44,7 @@ public class SolicitacaoLimite {
     @Column(name = "data_solicitacao")
     private LocalDate dataSolicitacao = LocalDate.now();
 
+    @Enumerated(EnumType.STRING)
     private StatusSolicitacao status = StatusSolicitacao.PENDENTE;
 
     public void aprovar() {

@@ -39,7 +39,7 @@ public class SolicitacaoLimiteService {
         if (!aumentoSuperiorA20PorCento(cartao, novoLimite)) {
             solicitacao.negar();
             solicitacaoLimiteRepositorio.save(solicitacao);
-            throw new AumentoLimiteInvalidoException("O novo limite deve ser pelo menos 20% maior que o atual");
+            throw new AumentoLimiteInvalidoException("O novo limitea deve ser pelo menos 20% maior que o atual");
         }
 
         solicitacao.aprovar();

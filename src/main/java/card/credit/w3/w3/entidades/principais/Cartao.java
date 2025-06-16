@@ -2,6 +2,7 @@ package card.credit.w3.w3.entidades.principais;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 import card.credit.w3.w3.enums.BandeiraCartao;

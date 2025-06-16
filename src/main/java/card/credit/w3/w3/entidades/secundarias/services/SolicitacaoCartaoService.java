@@ -1,15 +1,18 @@
 package card.credit.w3.w3.entidades.secundarias.services;
 
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.Random;
+
 import org.springframework.stereotype.Service;
 
 import card.credit.w3.w3.entidades.principais.Cartao;
 import card.credit.w3.w3.entidades.principais.Cliente;
+
 import card.credit.w3.w3.entidades.principais.repository.CartaoRepository;
 import card.credit.w3.w3.entidades.principais.repository.ClienteRepository;
 import card.credit.w3.w3.entidades.secundarias.SolicitacaoCartao;
@@ -17,6 +20,7 @@ import card.credit.w3.w3.entidades.secundarias.repository.SolicitacaoCartaoRepos
 import card.credit.w3.w3.enums.BandeiraCartao;
 import card.credit.w3.w3.enums.StatusCartao;
 import card.credit.w3.w3.enums.TipoCartao;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -106,3 +110,4 @@ public class SolicitacaoCartaoService {
         return Period.between(nascimento, LocalDate.now()).getYears() >= 18;
     }
 }
+

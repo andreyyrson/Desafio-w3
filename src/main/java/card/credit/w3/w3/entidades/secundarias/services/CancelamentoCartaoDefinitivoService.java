@@ -19,9 +19,11 @@ public class CancelamentoCartaoDefinitivoService {
 
     @Transactional
     public void cancelarCartaoDefinitivo(String numeroCartao, String cpf, String motivoCancelamento) {
-        Cartao cartao = cartaoRepository.findByNumeroCartao(numeroCartao).stream()
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Cartão não encontrado"));
+        Cartao cartao = cartaoRepository.findByNumeroCartao(numeroCartao);
+
+        if (cartao == null) {
+            throw new IllegalArgumentException("Cartão não encontrado com o número: " + numeroCartao);
+        }
 
         if (!cartao.getCliente().getCpf().equals(cpf)) {
             throw new IllegalArgumentException("CPF não corresponde ao titular do cartão");
@@ -29,7 +31,7 @@ public class CancelamentoCartaoDefinitivoService {
 
         //Adicionar validacao de Fatura
 
-        cartao.setStatus(StatusCartao.BLOQUEADO);
+        cartao.setStatus(StatusCartao.CANCELADO);
         cartaoRepository.save(cartao);
 
         CancelamentoCartaoDefinitivo cancelamento = new CancelamentoCartaoDefinitivo();

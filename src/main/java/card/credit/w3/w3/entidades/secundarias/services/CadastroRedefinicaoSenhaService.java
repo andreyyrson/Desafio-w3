@@ -10,7 +10,12 @@ import card.credit.w3.w3.entidades.secundarias.repository.CadastroRedefinicaoSen
 import card.credit.w3.w3.enums.StatusCartao;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.HexFormat;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +24,8 @@ public class CadastroRedefinicaoSenhaService {
     private final ClienteRepository clienteRepo;
     private final CartaoRepository cartaoRepo;
     private final CadastroRedefinicaoSenhaRepository cadastroSenhaRepository;
+    
+    private final SecureRandom secureRandom = new SecureRandom();
 
     @Transactional
     public void cadastrarOuRedefinirSenha(Long cartaoId, String cpf, String senha, boolean isCadastro) {
@@ -48,8 +55,9 @@ public class CadastroRedefinicaoSenhaService {
         if (!cliente.getCpf().equals(cpf)) {
             throw new IllegalArgumentException("CPF não corresponde ao titular do cartão");
         }
-
-        cartao.setSenhaHash(senha);
+        
+        String senhaHash = generateHash(senha);
+        cartao.setSenhaHash(senhaHash);
        
         if (isCadastro) {
             cartao.setStatus(StatusCartao.APROVADO);
@@ -60,13 +68,24 @@ public class CadastroRedefinicaoSenhaService {
 
        
         CadastroRedefinicaoSenha cadastroSenha = new CadastroRedefinicaoSenha();
-        cadastroSenha.setSenhaCartao((senha));
+        cadastroSenha.setSenhaCartao((senhaHash));
         cadastroSenha.setDataCriacao(LocalDateTime.now());
         cadastroSenha.setCartao(cartao);
         cadastroSenha.setCpfCliente(cpf);
         
         
         cadastroSenhaRepository.save(cadastroSenha);
+    }
+    
+    
+    private String generateHash(String senha) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(senha.getBytes());
+            return HexFormat.of().formatHex(hashBytes);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Erro ao gerar hash da senha", e);
+        }
     }
     
     private boolean isSenhaSequencial(String senha) {

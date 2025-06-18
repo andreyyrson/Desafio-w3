@@ -1,19 +1,23 @@
 package card.credit.w3.w3.entidades.principais.controller;
 
+import card.credit.w3.w3.entidades.principais.Cartao;
 import card.credit.w3.w3.entidades.principais.Cliente;
+import card.credit.w3.w3.entidades.principais.repository.CartaoRepository;
 import card.credit.w3.w3.entidades.principais.services.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-    private final ClienteService clienteService;
+    private final ClienteService clienteService; 
 
     public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
@@ -49,5 +53,20 @@ public class ClienteController {
     public ResponseEntity<Void> deletarCliente(@PathVariable Long id) {
         clienteService.deletarCliente(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{cpf}/cartoes")
+    public ResponseEntity<List<CartaoResponse>> listarCartoesDoCliente(@PathVariable String cpf) {
+        List<Cartao> cartoes = clienteService.buscarPorCpf(cpf);
+        List<CartaoResponse> resposta = cartoes.stream()
+            .map(CartaoResponse::new)
+            .toList();
+        return ResponseEntity.ok(resposta);
+    }
+    
+    public record CartaoResponse(String numeroCartao, BigDecimal limite, LocalDateTime criadoEm) {
+        public CartaoResponse(Cartao cartao) {
+            this(cartao.getNumeroCartao(), cartao.getLimite(), cartao.getDataCriacaoCartao());
+        }
     }
 }

@@ -44,7 +44,7 @@ public class AtivacaoCartaoService {
         
         AtivacaoCartao ativacao = new AtivacaoCartao();
         ativacao.setNumeroCartao(cartao.getNumeroCartao());
-        ativacao.setCpf(cpf);
+        ativacao.setCpf_cliente(cpf);
         ativacao.setSenhaInicial(senha);
         ativacao.setDataAtivacao(LocalDateTime.now());
         ativacao.setCartao(cartao);

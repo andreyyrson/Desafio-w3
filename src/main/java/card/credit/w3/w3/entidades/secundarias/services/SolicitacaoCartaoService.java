@@ -78,8 +78,9 @@ public class SolicitacaoCartaoService {
     }
 
     private void registrarSolicitacao(Cliente cliente, Cartao cartao) {
+        
         SolicitacaoCartao solicitacao = new SolicitacaoCartao();
-        solicitacao.setCliente(cliente);
+        solicitacao.setCpfCliente(cliente.getCpf());
         solicitacao.setCartaoGerado(cartao);
         solicitacao.setDataSolicitacao(LocalDate.now());
         solicitacao.setBandeira(cartao.getBandeira());

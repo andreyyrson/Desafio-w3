@@ -1,55 +1,71 @@
 package card.credit.w3.w3.entidades.secundarias.services;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import card.credit.w3.w3.entidades.principais.Cartao;
 import card.credit.w3.w3.entidades.principais.dto.CartaoDTO;
-import card.credit.w3.w3.entidades.principais.repository.CartaoRepositorio;
+import card.credit.w3.w3.entidades.principais.repository.CartaoRepository;
 import card.credit.w3.w3.entidades.secundarias.SolicitacaoLimite;
 import card.credit.w3.w3.entidades.secundarias.Exceptions.AumentoLimiteInvalidoException;
 import card.credit.w3.w3.entidades.secundarias.Exceptions.CartaoNaoEncontradoException;
 import card.credit.w3.w3.entidades.secundarias.repository.SolicitacaoLimiteRepositorio;
 import card.credit.w3.w3.enums.StatusCartao;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class SolicitacaoLimiteService {
 
-    @Autowired
-    private SolicitacaoLimiteRepositorio solicitacaoLimiteRepositorio;
+    private final CartaoRepository cartaoRepo;
+    private final SolicitacaoLimiteRepositorio solicitacaoRepo;
 
-    @Autowired
-    private CartaoRepositorio cartaoRepo;
+    @Transactional
+    public void solicitarAumentoLimite(String numeroCartao, String cpf, BigDecimal novoLimite, String justificativa) {
+        if (novoLimite == null || novoLimite.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("O novo limite deve ser um valor positivo");
+        }
 
-    public SolicitacaoLimite solicitar(CartaoDTO cartaoDTO, BigDecimal novoLimite) {
-        Cartao cartao = cartaoRepo.findByNumero(cartaoDTO.numero());
-
+        Cartao cartao = cartaoRepo.findByNumeroCartao(numeroCartao);
         if (cartao == null) {
-            throw new CartaoNaoEncontradoException("Cartão não encontrado com número: " + cartaoDTO.numero());
+            throw new CartaoNaoEncontradoException("Cartão não encontrado com número: " + numeroCartao);
         }
 
-        if (cartao.getStatus() != StatusCartao.APROVADO) {
-            throw new IllegalStateException("Cartão não está aprovado para aumento de limite");
+        if(cartao.getVencimento() == null || cartao.getVencimento().isBefore(LocalDateTime.now().toLocalDate())) {
+            throw new IllegalStateException("Cartão vencido, não é possível solicitar aumento de limite");
         }
 
-        SolicitacaoLimite solicitacao = new SolicitacaoLimite(cartao, novoLimite);
+        if (!cartao.getStatus().equals(StatusCartao.ATIVO)) {
+            throw new IllegalStateException("Cartão precisa estar ATIVO para solicitar aumento de limite");
+        }
 
-        if (!aumentoSuperiorA20PorCento(cartao, novoLimite)) {
+        BigDecimal minimoAceitavel = cartao.getLimite().multiply(BigDecimal.valueOf(1.2));
+        BigDecimal maximoAceitavel = cartao.getLimite().multiply(BigDecimal.valueOf(2.0));
+        boolean aumentoValido = novoLimite.compareTo(minimoAceitavel) >= 0 &&
+                                novoLimite.compareTo(maximoAceitavel) <= 0;
+
+        SolicitacaoLimite solicitacao = new SolicitacaoLimite();
+        solicitacao.setNumeroCartao(cartao.getNumeroCartao());
+        solicitacao.setCpfCliente(cartao.getCliente().getCpf());
+        solicitacao.setJustificativa(justificativa);
+        solicitacao.setLimiteSolicitado(novoLimite);
+        solicitacao.setDataCriacao(LocalDateTime.now());
+
+        if (aumentoValido) {
+            solicitacao.aprovar();
+            cartao.setLimite(novoLimite);
+            cartaoRepo.save(cartao);
+        } else {
             solicitacao.negar();
-            solicitacaoLimiteRepositorio.save(solicitacao);
-            throw new AumentoLimiteInvalidoException("O novo limite deve ser pelo menos 20% maior que o atual");
+            solicitacaoRepo.save(solicitacao);
+            throw new AumentoLimiteInvalidoException(
+                "O novo limite deve ser entre 20% e 100% acima do limite atual"
+            );
         }
 
-        solicitacao.aprovar();
-        cartao.setLimite(novoLimite);
-
-        cartaoRepo.save(cartao);
-        return solicitacaoLimiteRepositorio.save(solicitacao);
-    }
-
-    private boolean aumentoSuperiorA20PorCento(Cartao cartao, BigDecimal novoLimite) {
-        return novoLimite.compareTo(cartao.getLimite().multiply(BigDecimal.valueOf(1.2))) >= 0;
+        solicitacaoRepo.save(solicitacao);
     }
 }

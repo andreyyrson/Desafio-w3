@@ -9,6 +9,7 @@ import card.credit.w3.w3.entidades.principais.Cliente;
 import card.credit.w3.w3.enums.BandeiraCartao;
 import card.credit.w3.w3.enums.StatusCartao;
 import card.credit.w3.w3.enums.TipoCartao;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,9 +35,7 @@ public class SolicitacaoCartao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name = "cliente_id", nullable = false)
-	private Cliente cliente;
+	private String cpfCliente;
 	
 	@OneToOne
 	@JoinColumn(name = "cartao_id", unique = true)

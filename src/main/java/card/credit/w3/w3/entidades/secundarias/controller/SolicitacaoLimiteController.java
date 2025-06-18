@@ -6,6 +6,7 @@ import card.credit.w3.w3.entidades.principais.dto.CartaoDTO;
 import card.credit.w3.w3.entidades.secundarias.SolicitacaoLimite;
 import card.credit.w3.w3.entidades.secundarias.services.SolicitacaoLimiteService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
@@ -18,16 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController()
 @RequestMapping("/api/cartoes/limite")
-public class AumentoLimiteCartaoController {
+public class SolicitacaoLimiteController {
     @Autowired
     private SolicitacaoLimiteService solicitacaoLimiteService;
 
     
-    public record SolicitacaoLimiteRequest(CartaoDTO cartao, BigDecimal limiteNovo) {}
+    public record SolicitacaoLimiteRequest(@NotNull String numeroCartao, @NotNull String cpf ,@NotNull BigDecimal limiteNovo, @NotNull String justificativa) {}
 
-    @PostMapping("/solicitar")
-    public ResponseEntity<SolicitacaoLimite> aumentoLimiteCartao(@RequestBody @Valid SolicitacaoLimiteRequest request) {
-        SolicitacaoLimite solicitacao = solicitacaoLimiteService.solicitar(request.cartao(), request.limiteNovo());
-        return ResponseEntity.ok(solicitacao);
+    @PostMapping
+    public ResponseEntity<String> aumentoLimiteCartao(@RequestBody @Valid SolicitacaoLimiteRequest request) {
+        solicitacaoLimiteService.solicitarAumentoLimite(request.numeroCartao(),request.cpf() ,request.limiteNovo(), request.justificativa());
+        return ResponseEntity.ok("Limite aumentado com sucesso");
     }
 }

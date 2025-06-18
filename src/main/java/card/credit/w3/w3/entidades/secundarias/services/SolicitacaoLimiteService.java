@@ -60,7 +60,6 @@ public class SolicitacaoLimiteService {
             cartaoRepo.save(cartao);
         } else {
             solicitacao.negar();
-            solicitacaoRepo.save(solicitacao);
             throw new AumentoLimiteInvalidoException(
                 "O novo limite deve ser entre 20% e 100% acima do limite atual"
             );

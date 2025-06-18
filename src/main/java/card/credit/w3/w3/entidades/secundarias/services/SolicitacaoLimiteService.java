@@ -13,7 +13,7 @@ import card.credit.w3.w3.entidades.secundarias.Exceptions.AumentoLimiteInvalidoE
 import card.credit.w3.w3.entidades.secundarias.Exceptions.CartaoNaoEncontradoException;
 import card.credit.w3.w3.entidades.secundarias.repository.SolicitacaoLimiteRepositorio;
 import card.credit.w3.w3.enums.StatusCartao;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -23,7 +23,7 @@ public class SolicitacaoLimiteService {
     private final CartaoRepository cartaoRepo;
     private final SolicitacaoLimiteRepositorio solicitacaoRepo;
 
-    @Transactional
+    @Transactional(noRollbackFor = AumentoLimiteInvalidoException.class)
     public void solicitarAumentoLimite(String numeroCartao, String cpf, BigDecimal novoLimite, String justificativa) {
         if (novoLimite == null || novoLimite.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("O novo limite deve ser um valor positivo");
@@ -54,17 +54,23 @@ public class SolicitacaoLimiteService {
         solicitacao.setLimiteSolicitado(novoLimite);
         solicitacao.setDataCriacao(LocalDateTime.now());
 
+    
         if (aumentoValido) {
             solicitacao.aprovar();
             cartao.setLimite(novoLimite);
             cartaoRepo.save(cartao);
         } else {
             solicitacao.negar();
+        }
+
+       
+        solicitacaoRepo.save(solicitacao);
+
+        
+        if (!aumentoValido) {
             throw new AumentoLimiteInvalidoException(
                 "O novo limite deve ser entre 20% e 100% acima do limite atual"
             );
         }
-
-        solicitacaoRepo.save(solicitacao);
-    }
+}
 }

@@ -19,7 +19,7 @@ public class AtivacaoCartao {
     @Column(name = "numero_cartao", nullable = false)
     private String numeroCartao;
 
-    @Column(name = "cpf", nullable = false)
+    @Column(name = "cpf_cliente", nullable = false)
     private String cpf_cliente;
 
     @Column(name = "senha_inicial", nullable = false)

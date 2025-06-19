@@ -6,8 +6,12 @@ import card.credit.w3.w3.entidades.secundarias.dto.SolicitacaoResponse;
 import card.credit.w3.w3.entidades.secundarias.services.SolicitacaoCartaoService;
 import card.credit.w3.w3.enums.BandeiraCartao;
 import card.credit.w3.w3.enums.TipoCartao;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +20,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/cartoes/solicitacoes")
 @RequiredArgsConstructor
+@Tag(name = "Solicitação")
 public class SolicitacaoCartaoController {
 
     private final SolicitacaoCartaoService solicitacaoCartaoService;
 
     @PostMapping
+    @Operation(summary = "Cria um novo cartão no momento da solicitação sem uma senha cadastrada.")
     public ResponseEntity<SolicitacaoResponse> solicitarCartao(
             @RequestBody @Valid SolicitacaoCartaoRequest request) {
         

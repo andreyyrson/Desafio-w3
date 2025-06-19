@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import card.credit.w3.w3.entidades.secundarias.dto.HistoricoUnificadoResponse;
 import card.credit.w3.w3.entidades.secundarias.services.HistoricoCartaoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/historico-cartao")
+@Tag(name = "Histórico")
 public class HistoricoCartaoController {
 
     private final HistoricoCartaoService service;
@@ -22,6 +25,7 @@ public class HistoricoCartaoController {
     }
 
     @GetMapping("/{numeroCartao}")
+    @Operation(summary = "Retorna todas as operações já realizadas em um cartão ao longo do tempo.")
     public ResponseEntity<List<HistoricoUnificadoResponse>> buscar(@PathVariable String numeroCartao) {
         List<HistoricoUnificadoResponse> historico = service.buscarHistorico(numeroCartao);
         return ResponseEntity.ok(historico);

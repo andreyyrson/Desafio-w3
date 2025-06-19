@@ -4,6 +4,9 @@ import card.credit.w3.w3.entidades.principais.Cartao;
 import card.credit.w3.w3.entidades.principais.Cliente;
 import card.credit.w3.w3.entidades.principais.repository.CartaoRepository;
 import card.credit.w3.w3.entidades.principais.services.ClienteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +32,11 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novoCliente);
     }
 
+    @Operation(description = "Busca o cliente pelo id")
+    @ApiResponses(value = {
+    		@ApiResponse(responseCode = "200", description = "Retorna o cliente"),
+    		@ApiResponse(responseCode = "500", description = "Não existe um cliente com esse id")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
         Cliente cliente = clienteService.buscarPorId(id);

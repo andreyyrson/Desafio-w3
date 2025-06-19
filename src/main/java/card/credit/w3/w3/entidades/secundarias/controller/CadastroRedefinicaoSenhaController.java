@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import card.credit.w3.w3.entidades.secundarias.dto.CadastroSenhaRequest;
 import card.credit.w3.w3.entidades.secundarias.dto.RedefinicaoSenhaRequest;
 import card.credit.w3.w3.entidades.secundarias.services.CadastroRedefinicaoSenhaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -17,11 +19,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/cartoes/senha")
 @RequiredArgsConstructor
+@Tag(name = "Cadastro e Redefinição")
 public class CadastroRedefinicaoSenhaController {
 
 	private final CadastroRedefinicaoSenhaService cadastroRedefinicaoSenhaService;
 
     @PostMapping("/cadastrar")
+    @Operation(summary = "Cadastro de uma senha no cartão após solicitação.")
     public ResponseEntity<MensagemResponse> cadastrarSenha(
             @RequestBody @Valid CadastroSenhaRequest request) {
         
@@ -38,6 +42,7 @@ public class CadastroRedefinicaoSenhaController {
     }
 
     @PostMapping("/redefinir")
+    @Operation(summary = "Redefinição da senha de um cartão já ativo.")
     public ResponseEntity<MensagemResponse> redefinirSenha(
             @RequestBody @Valid RedefinicaoSenhaRequest request) {
         

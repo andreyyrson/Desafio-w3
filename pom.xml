@@ -79,6 +79,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+				<argLine>
+                    -XX:+EnableDynamicAgentLoading
+                    -Djdk.instrument.traceUsage=false
+                    -javaagent:"${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar"
+                </argLine>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

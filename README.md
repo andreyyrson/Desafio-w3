@@ -14,12 +14,7 @@ cd feature-flags-spring-boot
 
 Configure o banco de dados (opcional)
 
-bash# Para usar com Docker
-docker-compose up -d
-
-Execute a aplicação
-
-bash# Com Maven
+# Com Maven
 mvn spring-boot:run
 
 # Ou compile e execute o JAR
@@ -65,8 +60,3 @@ As configurações principais estão em:
 
 src/main/resources/application.yml
 src/main/resources/application-{profile}.yml
-
-# 📞 Suporte
-Para dúvidas técnicas, consulte a documentação na pasta docs/ ou abra uma issue.
-
-## ⭐ Dica: Confira a pasta docs/ para guias detalhados sobre como usar as feature flags!

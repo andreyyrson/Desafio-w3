@@ -1,6 +1,4 @@
-Feature Flags - Spring Boot
-Um sistema de feature flags desenvolvido em Spring Boot para controle dinâmico de funcionalidades.
- #🚀 Como Executar
+# 🚀 Como Executar
 Pré-requisitos
 
 Java 17 ou superior
@@ -71,4 +69,4 @@ src/main/resources/application-{profile}.yml
 # 📞 Suporte
 Para dúvidas técnicas, consulte a documentação na pasta docs/ ou abra uma issue.
 
-# ⭐ Dica: Confira a pasta docs/ para guias detalhados sobre como usar as feature flags!
+## ⭐ Dica: Confira a pasta docs/ para guias detalhados sobre como usar as feature flags!

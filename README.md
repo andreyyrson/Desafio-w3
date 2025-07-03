@@ -1,6 +1,6 @@
 Feature Flags - Spring Boot
 Um sistema de feature flags desenvolvido em Spring Boot para controle dinâmico de funcionalidades.
-#🚀 Como Executar
+ #🚀 Como Executar
 Pré-requisitos
 
 Java 17 ou superior
@@ -43,7 +43,7 @@ mvn spring-boot:run -Dspring-boot.run.profiles=prod
 
 # Testes
 mvn spring-boot:run -Dspring-boot.run.profiles=test
-📁 Estrutura do Projeto
+# 📁 Estrutura do Projeto
 ├── src/
 │   ├── main/java/          # Código fonte
 │   ├── main/resources/     # Configurações
@@ -51,9 +51,9 @@ mvn spring-boot:run -Dspring-boot.run.profiles=test
 ├── docs/                  # 📚 Documentação completa
 ├── docker-compose.yml     # Configuração Docker
 └── pom.xml               # Dependências Maven
-📚 Documentação
+# 📚 Documentação
 Toda a documentação técnica, arquitetura, APIs e guias de uso estão disponíveis na pasta docs/.
-🧪 Executando Testes
+# 🧪 Executando Testes
 bash# Todos os testes
 mvn test
 
@@ -62,13 +62,13 @@ mvn test -Dtest=FeatureFlagControllerTest
 
 # Com cobertura
 mvn test jacoco:report
-#🔧 Configuração
+# 🔧 Configuração
 As configurações principais estão em:
 
 src/main/resources/application.yml
 src/main/resources/application-{profile}.yml
 
-#📞 Suporte
+# 📞 Suporte
 Para dúvidas técnicas, consulte a documentação na pasta docs/ ou abra uma issue.
 
-#⭐ Dica: Confira a pasta docs/ para guias detalhados sobre como usar as feature flags!
+# ⭐ Dica: Confira a pasta docs/ para guias detalhados sobre como usar as feature flags!

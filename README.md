@@ -15,7 +15,6 @@ Git (opcional)
 ```
 git clone https://github.com/usuario/nome-do-repositorio.git
 cd nome-do-repositorio
-3. Execute com Maven
 ```
 No Linux/macOS:
 ```

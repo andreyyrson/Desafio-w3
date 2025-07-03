@@ -12,19 +12,17 @@ Maven 3.8+
 Git (opcional)
 
 1. Clone o repositório
-```bash
+```
 git clone https://github.com/usuario/nome-do-repositorio.git
 cd nome-do-repositorio
 3. Execute com Maven
+```
 No Linux/macOS:
 ```
-```
-Copiar
-Editar
 ./mvnw spring-boot:run
-´´´
 ```
 No Windows:
+```
 mvnw.cmd spring-boot:run
 ```
 A aplicação estará disponível em:

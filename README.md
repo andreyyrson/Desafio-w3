@@ -47,6 +47,6 @@ Spring Boot
 
 Spring Data JPA
 
-H2 Database
+Postgre DataBase
 
 Maven
